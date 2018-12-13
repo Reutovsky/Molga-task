@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", loadDataFromJSON);
+var tablePlace = document.getElementById("tablePlace");
 
 function loadDataFromJSON () {
     var xhr = new XMLHttpRequest();
@@ -6,10 +7,9 @@ function loadDataFromJSON () {
     xhr.onload = function(){
         if(this.status == 200) {
             var data = JSON.parse(this.responseText);
-            var tablePlace = document.getElementById("tablePlace");
             var table = '';
             table += '<table class="table">' +
-                        '<thead>' +
+                        '<thead class="thead-dark">' +
                             '<tr>' +
                                 '<th scope="col">Название файла</th>' +
                                 '<th scope="col">Язык</th>' +
@@ -22,7 +22,6 @@ function loadDataFromJSON () {
                     if (mainKey === "files") {
                         var filenameObject = data[k][mainKey];
                         for (var filenameObjectKey in filenameObject) {
-                            // console.log(filenameObject[filenameObjectKey]);
                             for (var fileNameObjectKeyFile in filenameObject[filenameObjectKey]) {
                                 if (fileNameObjectKeyFile === 'filename') {
                                     var wantedFilename = filenameObject[filenameObjectKey][fileNameObjectKeyFile];
@@ -32,7 +31,7 @@ function loadDataFromJSON () {
                                     table += '<td>' + wantedLanguage + '</td>';
                                 } else if (fileNameObjectKeyFile === 'raw_url') {
                                     var wantedURL = filenameObject[filenameObjectKey][fileNameObjectKeyFile];
-                                    table += '<td>' + wantedURL + '</td></tr>';
+                                    table += '<td>' + '<a href="' + wantedURL + '">Link</a></td></tr>';
                                 } else;
                             }
                         }
@@ -41,6 +40,8 @@ function loadDataFromJSON () {
             }
             table += '</tbody></table>';
             tablePlace.innerHTML = table;
+        } else {
+            tablePlace.innerHTML = '<h3><center>Ошибка!<br>Статус ответа: ' + this.status + '</center></h3>';
         }
     };
     xhr.send();
