@@ -7,16 +7,15 @@ function loadDataFromJSON () {
     xhr.onload = function(){
         if(this.status == 200) {
             var data = JSON.parse(this.responseText);
-            var table = '';
-            table += '<table class="table">' +
-                        '<thead class="thead-dark">' +
-                            '<tr>' +
-                                '<th scope="col">Название файла</th>' +
-                                '<th scope="col">Язык</th>' +
-                                '<th scope="col">Ссылка</th>' +
-                            '</tr>' +
-                        '</thead>' +
-                        '<tbody>';          
+            var table = '<table class="table">' +
+                            '<thead class="thead-dark">' +
+                                '<tr>' +
+                                    '<th scope="col">Название файла</th>' +
+                                    '<th scope="col">Язык</th>' +
+                                    '<th scope="col">Ссылка</th>' +
+                                '</tr>' +
+                            '</thead>' +
+                            '<tbody>';          
             for (var k in data) {
                 for (var mainKey in data[k]) {
                     if (mainKey === "files") {
